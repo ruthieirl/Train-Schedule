@@ -1,0 +1,21 @@
+body {
+	background-image: url("../images/back.jpg");
+}
+
+.jumbotron {
+	background-color: #000;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.panel {
+	background-color: #000;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.btn {
+	background-color: #000;
+	color: #fff;
+	border: 1px solid #fff;	
+}

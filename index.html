@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	
 	<meta charset="UTF-8">
 	<title>Train Scheduler</title>
 
@@ -19,19 +20,58 @@
    	<br>
    	
    	<!-- Jumbotron -->
-    <div class="jumbotron">
+    <div class="jumbotron jumbotron-danger">
       
-      <h1 class="text-center">I Choo-Choose You</h1>
+      <h1 class="text-center">I Choo-Choo-Choose You</h1>
       
       <h3 class="text-center">Train Scheduler</h3>
     
     </div><!-- Jumbotron -->
     
     <div class="row">
-   	<!-- Train Schedule Display -->
-      <div class="col-lg-12">
+     
+    <!-- Input Panel-->
+    <div class="col-md-4">
         
-        <div class="panel panel-default">
+        <div class="panel">
+          
+          	<div class="panel-heading">
+            	
+            	<h3 class="panel-title">Add Train</h3>
+          	
+          	</div>
+          
+          	<div class="panel-body">
+           	<!-- form inputs -->
+            	<form role="form">
+              		<div class="form-group">
+                		<label for="name-input">Train Name</label>
+                		<input class="form-control" id="name-input" type="text">
+              		</div><!-- form group -->
+              		<div class="form-group">
+                		<label for="dest-input">Destination</label>
+                		<input class="form-control" id="dest-input" type="text">
+              		</div><!-- form group -->
+              		<div class="form-group">
+                		<label for="time-input">First Train Time (HH:mm - military time)</label>
+                		<input class="form-control" id="time-input" type="number">
+              		</div><!-- form group -->
+              		<div class="form-group">
+                		<label for="freq-input">Frequency (min)</label>
+                		<input class="form-control" id="freq-input" type="number">
+              		</div>
+              		<button class="btn" id="add-train" type="submit">Submit</button>
+            	</form>
+          	
+          	</div><!-- panel-body -->
+        
+        </div><!-- panel -->
+    
+    </div><!-- col-md-4 -->
+    <!-- Train Schedule Display -->
+      <div class="col-md-8">
+        
+        <div class="panel">
           
         	<div class="panel-heading">
             
@@ -59,46 +99,7 @@
         
         </div><!-- panel -->
      
-	</div><!-- col-lg-12 -->
-     
-    <!-- Input Panel-->
-    <div class="col-lg-12">
-        
-        <div class="panel panel-default">
-          
-          	<div class="panel-heading">
-            	
-            	<h3 class="panel-title">Add Train</h3>
-          	
-          	</div>
-          
-          	<div class="panel-body">
-           	<!-- form inputs -->
-            	<form role="form">
-              		<div class="form-group">
-                		<label for="name-input">Train Name</label>
-                		<input class="form-control" id="name-input" type="text">
-              		</div><!-- form group -->
-              		<div class="form-group">
-                		<label for="dest-input">Destination</label>
-                		<input class="form-control" id="desty-input" type="text">
-              		</div><!-- form group -->
-              		<div class="form-group">
-                		<label for="time-input">First Train Time (HH:mm - military time)</label>
-                		<input class="form-control" id="time-input" type="number">
-              		</div><!-- form group -->
-              		<div class="form-group">
-                		<label for="freq-input">Frequency (min)</label>
-                		<input class="form-control" id="freq-input" type="number">
-              		</div>
-              		<button class="btn btn-default" id="add-train" type="submit">Submit</button>
-            	</form>
-          	
-          	</div><!-- panel-body -->
-        
-        </div><!-- panel -->
-    
-    </div><!-- col-lg-12 -->
+	</div><!-- col-md-8 -->
 	</div><!-- row -->
 	</div><!-- container -->
 
