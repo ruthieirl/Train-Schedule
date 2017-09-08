@@ -17,7 +17,7 @@
   var time = "";
   var freq = "";
 
-//Grab train info     
+//Grab input information     
   $("#add-train").on("click", function(event) {
       event.preventDefault();
       name = $("#name-input").val().trim();
@@ -31,7 +31,7 @@
     console.log(time);
     console.log(freq);
     
-    //Pushing that info into the correct place
+    //Set the data in the database
     database.ref().push({
         name: name,
         destination: dest,
@@ -40,7 +40,7 @@
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
-    //Grabbing info from inputs
+    //Clearing the inputs
      $("#name-input").val("");
      $("#dest-input").val("");
      $("#time-input").val("");
@@ -50,22 +50,49 @@
   // Firebase watcher + initial loader 
   database.ref().on("child_added", function(childSnapshot) {
 
-      // Log everything that's coming out of snapshot
+    // Log everything that's coming out of snapshot
       console.log(childSnapshot.val().name);
       console.log(childSnapshot.val().dest);
       console.log(childSnapshot.val().time);
       console.log(childSnapshot.val().freq);
+
+    //Calculate the time to the next train
+
+    // First Time (pushed back 1 year to make sure it comes before current time)
+    var firstTimeConverted = moment(time, "hh:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
+
+    // Current Time
+    var currentTime = moment();
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+    // Difference between the times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("DIFFERENCE IN TIME: " + diffTime);
+
+    // Time apart (remainder)
+    var tRemainder = diffTime % freq;
+    console.log(tRemainder);
+
+    // Minute Until Train
+    var tMinutesTillTrain = freq - tRemainder;
+    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+    // Next Train
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
       // Full list of items to the table
       $("#train-info").append("<tr class='well'><td id='name'> " + childSnapshot.val().name +
       	" </td><td id='dest'> " + childSnapshot.val().dest +
         " </td><td id='time'> " + childSnapshot.val().time +
         " </td><td id='freq'> " + childSnapshot.val().freq + 
-        " </td><td id='left'> " + childSnapshot.val().left +
+        " </td><td id='left'> " + tMinutesTillTrain +
         " </td></tr>");
 
-      console.log(moment)
     // Handle the errors
     }, function(errorObject) {
+      
       console.log("Errors handled: " + errorObject.code);
+    
     });

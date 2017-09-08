@@ -14,9 +14,17 @@ body {
 	border: 2px solid #fff;
 }
 
+.panel-title {
+	font-weight: bold;
+}
+
 .well {
 	background-color: #000;
 	color: #fff;	
+}
+
+td {
+	text-align: center;
 }
 
 .btn {
