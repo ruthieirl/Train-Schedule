@@ -25,6 +25,8 @@
       <h1 class="text-center">I Choo-Choo-Choose You</h1>
       
       <h3 class="text-center">Train Scheduler</h3>
+
+      <div id="currentTime"></div>
     
     </div><!-- Jumbotron -->
     
@@ -53,7 +55,7 @@
                 		<input class="form-control" id="dest-input" type="text">
               		</div><!-- form group -->
               		<div class="form-group">
-                		<label for="time-input">First Train Time (HH:mm - military time)</label>
+                		<label for="time-input">First Train Time<br/> (HH:mm - military time)</label>
                 		<input class="form-control" id="time-input" type="time">
               		</div><!-- form group -->
               		<div class="form-group">
@@ -92,8 +94,11 @@
                            <th>Minutes Away</th>
                        </tr>
                     </thead>
+                    <tbody>
 
-               </table>
+                    </tbody>
+            
+                </table>
           	
           	</div><!-- train-info -->
         

@@ -11,12 +11,14 @@
   firebase.initializeApp(config);
 
 //Set Global Variables
+  var currentTime = moment();
   var database = firebase.database();
   var name = "";
   var dest = "";
   var time = "";
   var freq = "";
 
+  $("#currentTime").append(currentTime);
 //Grab input information     
   $("#add-train").on("click", function(event) {
       event.preventDefault();
@@ -25,6 +27,7 @@
       time = $("#time-input").val().trim();
       freq = $("#freq-input").val().trim();
   	
+  	  freq = parseInt(freq, 10);
     //Checking to make sure I grabbed the correct info
     console.log(name);
     console.log(dest);
@@ -34,8 +37,8 @@
     //Set the data in the database
     database.ref().push({
         name: name,
-        destination: dest,
-        frequency: freq,
+        dest: dest,
+        freq: freq,
         time: time,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
@@ -56,7 +59,14 @@
       console.log(childSnapshot.val().time);
       console.log(childSnapshot.val().freq);
 
-    //Calculate the time to the next train
+    console.log(moment());
+
+    var test = moment();
+    test.set({'hour': parseInt(time.slice(0,2)), 'minute': parseInt(time.slice(3,2))});
+    console.log(test);
+    console.log(time.slice(0,2));
+    console.log(time.slice(3,2));
+    console.log(time);
 
     // First Time (pushed back 1 year to make sure it comes before current time)
     var firstTimeConverted = moment(time, "hh:mm").subtract(1, "years");
@@ -80,15 +90,45 @@
 
     // Next Train
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    console.log("NEXT ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+   	var nextTrainConvert = moment(nextTrain).format("hh:mm a");
+   	console.log(nextTrainConvert);
+
+    //var nameInf = $("<td id='name'>" + childSnapshot.val().name + "</td>");
+    //console.log(nameInf);
+
+    //var destInf = $("<td id='dest'>" + childSnapshot.val().dest + "</td>");
+    //console.log(destInf);
+
+    //var freqInf = $("<td id='freq'>" + childSnapshot.val().freq + "</td>");
+    //console.log(freqInf);
+
+    //var nextTrainInf = $("<td id='nextTrain'>" + nextTrainConvert + "</td>");
+    //console.log(nextTrainInf);
+
+    //var timeLeftInf = $("<td id='left'>" + tMinutesTillTrain + "</td>");
+    //console.log(timeLeftInf);
+
+    //var trainInf = $("<tr></tr>");
+
+    var nameInf = $("<tr><td id='name'>" + childSnapshot.val().name + 
+    				"</td><td id='dest'>" + childSnapshot.val().dest + 
+    				"</td><td id='freq'>" + childSnapshot.val().freq + 
+    				"</td><td id='nextTrain'>" + nextTrainConvert + 
+    				"</td><td id='left'>" + tMinutesTillTrain + "</td></tr>");
+    console.log(nameInf);
+
+    var trainInf = $("tbody");
+
+    trainInf.append(nameInf);
+    //trainInf.append(destInf);
+    //trainInf.append(freqInf);
+    //trainInf.append(nextTrainInf);
+    //trainInf.append(timeLeftInf);
 
       // Full list of items to the table
-      $("#train-info").append("<tr class='well'><td id='name'> " + childSnapshot.val().name +
-      	" </td><td id='dest'> " + childSnapshot.val().dest +
-        " </td><td id='time'> " + childSnapshot.val().time +
-        " </td><td id='freq'> " + childSnapshot.val().freq + 
-        " </td><td id='left'> " + tMinutesTillTrain +
-        " </td></tr>");
+      $("#train-info").append(trainInf);
 
     // Handle the errors
     }, function(errorObject) {
@@ -96,3 +136,4 @@
       console.log("Errors handled: " + errorObject.code);
     
     });
+
